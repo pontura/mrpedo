@@ -6,27 +6,31 @@ namespace Game
     public class Character : MonoBehaviour
     {
         [SerializeField] private Vector2 limits = new Vector2(-4.26f, 7.82f);
-        [HideInInspector] public float forwardSpeed = 5f;
+        [SerializeField] float forwardSpeed = 5f;
 
         [Header("Jetpack")]
+        [SerializeField] private float gravityScale = 1;
         [SerializeField] private float jetpackForce = 15f;
         [SerializeField] private float maxFallSpeed = -20f;
         [SerializeField] private float maxRiseSpeed = 10f;
         [SerializeField] private float bounceFloor = 6f;
         [SerializeField] private float bounceCeil = 2f;
 
-        private Rigidbody2D rb;
-        [SerializeField] bool jetpackActive;
+        public Rigidbody2D rb;
+        [SerializeField] float upForce;
 
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            rb.gravityScale = 3f;
+            rb.gravityScale = gravityScale;
         }
-
-        public void OnPedo( bool isOn)
+        public void SetSpeed(float _forwardSpeed)
         {
-            jetpackActive = isOn;
+            forwardSpeed = _forwardSpeed;
+        }
+        public void OnPedo( float upForce)
+        {
+            this.upForce = upForce;
         }
 
         void FixedUpdate()
@@ -48,9 +52,10 @@ namespace Game
 
         private void HandleJetpack()
         {
-            if (jetpackActive)
+            if (upForce > 0)
             {
-                rb.AddForce(Vector2.up * jetpackForce, ForceMode2D.Force);
+                print("sube: " + jetpackForce * (1 + upForce));
+                rb.AddForce(Vector2.up * jetpackForce * (1+upForce), ForceMode2D.Force);
             }
         }
         public void Bounce(float force)
@@ -70,12 +75,10 @@ namespace Game
             if (transform.position.y < limits.x)
             {
                 force = bounceFloor * (rb.linearVelocityY * 10);
-                print("choca floor: " + force);
                 Bounce(-force);
             } else if (transform.position.y > limits.y)
             {
                 force = bounceCeil * (rb.linearVelocityY * 10);
-                print("choca bounceCeil: " + force);
                 Bounce(-force);
             }
             return force != 0;

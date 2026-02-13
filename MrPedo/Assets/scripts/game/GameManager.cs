@@ -1,24 +1,28 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace Game
 {
     public class GameManager : MonoBehaviour
     {
-        [SerializeField] private float forwardSpeed = 5f;
+        [SerializeField] private float forwardSpeed = 4f;
         [SerializeField] Character character;
         [SerializeField] ParallaxLayer[] parallaxLayers;
         void Start()
         {
-            character.forwardSpeed = forwardSpeed;
-            foreach (var layer in parallaxLayers)
-            {
-                layer.scrollSpeed = forwardSpeed;
-            }
+            Loop();
         }
-        void Update()
+        float acceleration = 0.01f;
+        private void Loop()
         {
-            bool pedo = Input.GetKey(KeyCode.Space);
-            character.OnPedo(pedo);
+            forwardSpeed += acceleration;
+
+            character.SetSpeed(forwardSpeed);
+
+            foreach (ParallaxLayer layer in parallaxLayers)
+                layer.OnUpdate(character.rb.linearVelocity.x);
+
+            Invoke("Loop", 0.5f);   
         }
     }
 }

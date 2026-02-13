@@ -1,28 +1,29 @@
 using UnityEngine;
-namespace Game
+
+public class ParallaxLayer : MonoBehaviour
 {
-    public class ParallaxLayer : MonoBehaviour
+    [SerializeField] private float parallaxMultiplier = 0.5f;
+
+    [SerializeField] private float spriteWidth;
+    [SerializeField] private Transform cam;
+    float playerSpeedX;
+    public void OnUpdate(float playerSpeedX)
     {
-        [Header("Scroll")]
-        [HideInInspector] public float scrollSpeed = 2f;
-        [SerializeField] private float parallaxMultiplier = 0.5f;
+        this.playerSpeedX = playerSpeedX;
+    }
+    private void FixedUpdate()
+    {        
+        print(playerSpeedX);
+        float movement = playerSpeedX * parallaxMultiplier * Time.deltaTime;
 
-        [SerializeField] private float spriteWidth;
-        [SerializeField] private Transform cam;
+        transform.position += Vector3.right * movement;
 
+        float cameraLeftEdge = cam.position.x -
+            (Camera.main.orthographicSize * Camera.main.aspect);
 
-        void Update()
+        if (transform.position.x + spriteWidth < cameraLeftEdge)
         {
-            float movement = scrollSpeed * parallaxMultiplier * Time.deltaTime;
-            transform.position += Vector3.left * movement;
-
-            float cameraLeftEdge = cam.position.x - (Camera.main.orthographicSize * Camera.main.aspect);
-
-            // Si el sprite salió completamente por la izquierda de la cámara
-            if (transform.position.x + spriteWidth < cameraLeftEdge)
-            {
-                transform.position += Vector3.right * spriteWidth;
-            }
+            transform.position += Vector3.right * spriteWidth;
         }
     }
 }
