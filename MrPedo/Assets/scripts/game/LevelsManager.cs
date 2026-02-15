@@ -10,13 +10,13 @@ namespace Game
         [SerializeField] LevelData[] levels;
         float _x;
         float next_x;
-        Vector3 offset = new Vector3(20,0,0);
+        Vector3 offset = new Vector3(40,0,0);
 
         [SerializeField] Transform container;
         [SerializeField] Character character;
         LevelCreator levelCreator;
 
-        private void Start()
+        void Awake()
         {
             levelCreator = GetComponent<LevelCreator>();
         }
@@ -25,17 +25,15 @@ namespace Game
             _x = character.transform.position.x;
             if (_x> next_x)
                 NextLevel();
+            levelCreator.CheckOutOfView(_x);
         }
         void NextLevel()
         {
             Vector3 pos = offset + (Vector3.right * next_x);
-            LevelData level = Instantiate(levels[Random.Range(0, levels.Length)], container);
-            levelCreator.Init(level, pos);
-
-            print("NextLevel" + _x + " next: " + next_x + level.width);
-
+            LevelData level = levels[Random.Range(0, levels.Length)];
             level.Init();
-            level.transform.position += pos;            
+            levelCreator.Init(level, pos);
+            print("NextLevel" + _x + " next: " + (next_x + level.width));        
             next_x += level.width;
         }
     }

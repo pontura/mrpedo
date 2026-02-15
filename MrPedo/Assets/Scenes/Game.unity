@@ -1769,7 +1769,7 @@ MonoBehaviour:
   levels:
   - {fileID: 325664228471604210, guid: 7bb8e906f71f43d4d85db25fc24795a2, type: 3}
   - {fileID: 5101844115270995250, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
-  container: {fileID: 1737134038}
+  container: {fileID: 0}
   character: {fileID: 755693766}
 --- !u!114 &1737134040
 MonoBehaviour:
@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 1737134038}
   totalSamples: 20
-  grabbableSO: {fileID: 5560552471743296121, guid: 05d18575fd547e24b8c830975b94c777, type: 3}
+  all: []
 --- !u!1 &1792289573
 GameObject:
   m_ObjectHideFlags: 0
@@ -1947,6 +1947,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2047352261}
   - component: {fileID: 2047352262}
+  - component: {fileID: 2047352263}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -1993,6 +1994,22 @@ MonoBehaviour:
   - {fileID: 2052837494}
   - {fileID: 662492056}
   - {fileID: 1307481271}
+  pool: {fileID: 2047352263}
+--- !u!114 &2047352263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2047352260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5577de9d9b139459b7bf5b74f8f95f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5560552471743296121, guid: 05d18575fd547e24b8c830975b94c777, type: 3}
+  initialSize: 80
+  canExpand: 1
 --- !u!1 &2052837492
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,10 +2154,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8023122430116837393, guid: 7bb8e906f71f43d4d85db25fc24795a2, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8462526113183248337, guid: 7bb8e906f71f43d4d85db25fc24795a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2204,10 +2217,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1737134038}
     m_Modifications:
-    - target: {fileID: 1809355405868323282, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2886531299995888043, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
       propertyPath: m_Name
       value: 2
@@ -2215,14 +2224,6 @@ PrefabInstance:
     - target: {fileID: 2886531299995888043, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4048303896328502512, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
-      propertyPath: m_Creator
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6868482088306045302, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
-      propertyPath: m_Creator
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7429010154944014975, guid: 5017401e221b8fa4bb778701e3d5842e, type: 3}
       propertyPath: m_LocalPosition.x

@@ -54,7 +54,7 @@ namespace Game
         {
             if (upForce > 0)
             {
-                print("sube: " + jetpackForce * (1 + upForce));
+               // print("sube: " + jetpackForce * (1 + upForce));
                 rb.AddForce(Vector2.up * jetpackForce * (1+upForce), ForceMode2D.Force);
             }
         }

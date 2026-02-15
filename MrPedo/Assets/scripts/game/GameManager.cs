@@ -1,14 +1,20 @@
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace Game
 {
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance { get; private set; }
         [SerializeField] private float forwardSpeed = 4f;
         [SerializeField] Character character;
         [SerializeField] LevelsManager levelsManager;
         [SerializeField] ParallaxLayer[] parallaxLayers;
+        public ObjectPool pool;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
         void Start()
         {
             Loop();

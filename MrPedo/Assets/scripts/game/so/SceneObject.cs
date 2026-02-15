@@ -7,7 +7,7 @@ namespace Game
     {
         public void Init(Vector3 pos)
         {
-            transform.position = pos;
+            transform.localPosition = pos;
         }
     }
 }

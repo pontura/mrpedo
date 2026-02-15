@@ -11,8 +11,7 @@ namespace Game
 
         public void Init()
         {
-            if(sceneObjects.Length == 0)
-            sceneObjects = GetComponentsInChildren<SceneObject>();
+            print("tengo: " + sceneObjects.Length + " pos: " + transform.position + " NAME " + gameObject.name);
         }
         public SceneObject[] GetSceneObjects()
         {

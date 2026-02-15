@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.U2D;
 namespace Game
@@ -7,19 +8,47 @@ namespace Game
     {
         [SerializeField] Transform container;
         public int totalSamples = 20;
-        public GrabbableSO grabbableSO;
+        public List<SceneObject> all;
 
-        public void Init(LevelData ld, Vector3 pos)
+        public void CheckOutOfView(float character_pos_x)
         {
-            foreach (SpriteShapeController spriteShape in ld.GetGrabbablesLines())
+            if (all.Count < 1) return;
+            SceneObject so = all[0];
+            if (so.transform.position.x < character_pos_x - 15f)
+            {
+                all.RemoveAt(0);
+                GrabbableSO grabbable = so.GetComponent<GrabbableSO>();
+                if (grabbable)
+                {
+                    GameManager.Instance.pool.ReturnGrabbable(so.GetComponent<GrabbableSO>());
+                }
+                else
+                {
+                    Destroy(so.gameObject);
+                }
+            }
+        }
+        public void Init(LevelData level, Vector3 pos)
+        {
+            SceneObject[] allInLevel = level.GetSceneObjects();
+            foreach (SceneObject so in allInLevel)
+            {
+                SceneObject newSO = Instantiate(so);
+                newSO.Init(so.transform.localPosition + pos);
+                newSO.transform.parent = container;
+                all.Add(newSO);
+                print("___" + so.transform.localPosition + pos);
+            }
+            foreach (SpriteShapeController spriteShape in level.GetGrabbablesLines())
             {
                 List<Vector3> points = SampleSpline(spriteShape, totalSamples);
 
                 foreach (Vector3 p in points)
                 {
-                    GrabbableSO so = Instantiate(grabbableSO, container);
-                    so.Init(p + pos);
-                    Debug.Log(p);
+                    GrabbableSO newSO = GameManager.Instance.pool.GetGrabbable();
+                    newSO.Init(p + pos);
+                    newSO.transform.SetParent(container);
+                    all.Add(newSO);
                 }
                 spriteShape.enabled = false;
             }
