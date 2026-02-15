@@ -1,9 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.U2D;
 
 namespace Game
 {
-    public class LevelData : MonoBehaviour
+    public class AreaData : MonoBehaviour
     {
         public int width = 10;
         [SerializeField] SceneObject[] sceneObjects;

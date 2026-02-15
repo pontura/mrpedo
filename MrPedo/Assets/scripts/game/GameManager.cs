@@ -5,6 +5,8 @@ namespace Game
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance { get; private set; }
+
+        float acceleration = 0.025f;
         [SerializeField] private float forwardSpeed = 4f;
         [SerializeField] Character character;
         [SerializeField] LevelsManager levelsManager;
@@ -19,7 +21,6 @@ namespace Game
         {
             Loop();
         }
-        float acceleration = 0.01f;
         private void Loop()
         {
             forwardSpeed += acceleration;

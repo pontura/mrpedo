@@ -28,9 +28,9 @@ namespace Game
                 }
             }
         }
-        public void Init(LevelData level, Vector3 pos)
+        public void Init(AreaData area, Vector3 pos)
         {
-            SceneObject[] allInLevel = level.GetSceneObjects();
+            SceneObject[] allInLevel = area.GetSceneObjects();
             foreach (SceneObject so in allInLevel)
             {
                 SceneObject newSO = Instantiate(so);
@@ -39,7 +39,7 @@ namespace Game
                 all.Add(newSO);
                 print("___" + so.transform.localPosition + pos);
             }
-            foreach (SpriteShapeController spriteShape in level.GetGrabbablesLines())
+            foreach (SpriteShapeController spriteShape in area.GetGrabbablesLines())
             {
                 List<Vector3> points = SampleSpline(spriteShape, totalSamples);
 
