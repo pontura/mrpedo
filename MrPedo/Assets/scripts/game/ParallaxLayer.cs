@@ -13,7 +13,6 @@ public class ParallaxLayer : MonoBehaviour
     }
     private void FixedUpdate()
     {        
-        print(playerSpeedX);
         float movement = playerSpeedX * parallaxMultiplier * Time.deltaTime;
 
         transform.position += Vector3.right * movement;

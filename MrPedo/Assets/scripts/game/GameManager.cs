@@ -7,6 +7,7 @@ namespace Game
     {
         [SerializeField] private float forwardSpeed = 4f;
         [SerializeField] Character character;
+        [SerializeField] LevelsManager levelsManager;
         [SerializeField] ParallaxLayer[] parallaxLayers;
         void Start()
         {
